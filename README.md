@@ -59,7 +59,8 @@ Question
 - Extracts keywords from the question by tokenizing and removing stopwords
 - Classifies question type (exam, penalty, fee, duration, requirement, grade, etc.)
 - Determines the aspect (exam_late, cheating, easycard_fee, graduation_credits, etc.)
-- Maps vague questions to broader aspects for better query coverage
+- **Ambiguity detection**: Identifies vague/problematic questions using regex patterns (e.g., "a bit", "probably", "maybe", "always allowed", false premises)
+- Smart keyword handling: Distinguishes "undergraduate" from "graduate" (not substring matching)
 
 ### 2. Security / Policy Agent
 - Regex-based blocklist with 30+ unsafe patterns
@@ -71,6 +72,8 @@ Question
 ### 3. Query Planner Agent
 - Maintains a mapping of 20+ aspects to pre-built Cypher queries
 - Aspect-targeted queries use `CONTAINS` filters for precise matching
+- Type-specific filtering (e.g., `r.type = 'fee'`, `r.type = 'duration'`) for higher precision
+- Exclusion filters to prevent false matches (e.g., `NOT r.action CONTAINS 'undergraduate'` for graduate queries)
 - Fallback uses fulltext indexes (`rule_idx`, `article_content_idx`) with keyword search
 - Generates both Rule-node and Article-node queries for comprehensive coverage
 
@@ -86,6 +89,7 @@ Question
   - **QUERY_ERROR**: Execution threw an error
   - **SCHEMA_MISMATCH**: Error related to schema/index issues
   - **NO_DATA**: Query succeeded but returned no rows
+- Ambiguous questions are routed to NO_DATA to trigger repair flow for best-effort answers
 
 ### 6. Query Repair Agent
 - Triggered on QUERY_ERROR, SCHEMA_MISMATCH, or NO_DATA
@@ -104,8 +108,8 @@ Question
 2. **Dynamic**: If diagnosis is SUCCESS → build answer; if ERROR/NO_DATA → Repair → Re-execute → Re-diagnose → build answer
 
 **Answer generation:**
-- Prioritizes Article content (more readable, complete sentences)
-- Supplements with Rule action/result data
+- Prioritizes Rule action/result data (structured, concise answers)
+- Supplements with Article content for context
 - Adds concise prefix for yes/no questions ("No.") and quantity questions ("20 minutes.")
 - Deduplicates overlapping content
 
@@ -126,6 +130,26 @@ Question
 2. **Keyword-to-data mismatch**: Questions using "test" don't match rules containing "exam". Solved with synonym expansion in the repair agent and aspect-based planning that bypasses keyword search.
 
 3. **Fulltext search limitations**: Lucene fulltext search with very vague keywords (e.g., "someone something okay") returns no results. Solved with aspect-aware repair fallbacks that use broader Cypher queries.
+
+4. **Substring matching in NLU**: "undergraduate" contains "graduate" causing wrong classification. Fixed by explicit exclusion check (`"undergraduate" not in q_lower`).
+
+5. **Query ordering for similar keywords**: "Mifare (non-EasyCard)" was matching EasyCard pattern first. Fixed by checking Mifare before EasyCard and excluding "non-easycard".
+
+6. **Generic rules overshadowing specific rules**: Queries returned general article rules before specific fee/duration rules. Fixed by adding `r.type = 'fee'` or `r.type = 'duration'` filters.
+
+7. **Ambiguous/failure case handling**: Vague questions with false premises (e.g., "always allowed") need repair flow. Solved with ambiguity pattern detection that triggers NO_DATA → repair.
+
+## Key Findings & Insights
+
+1. **Deterministic rule extraction outperforms LLM-based**: Using regex patterns to extract rules from articles (in `build_kg.py`) provides consistent, fast results compared to LLM-based extraction which can hallucinate or miss edge cases.
+
+2. **Aspect-based routing is more reliable than pure NLP**: Pre-defining question aspects and mapping them to specific Cypher queries avoids the brittleness of keyword-only search.
+
+3. **Repair flow is essential for robustness**: The diagnosis → repair → re-execute pattern handles edge cases gracefully, improving overall system reliability.
+
+4. **Test-driven development is crucial**: Iterating with `auto_test_a5_results.json` to identify failing cases and their root causes led to systematic fixes.
+
+5. **Order matters in pattern matching**: NLU classification order (checking Mifare before EasyCard, extension before duration) significantly impacts accuracy.
 
 ## Setup & Running
 

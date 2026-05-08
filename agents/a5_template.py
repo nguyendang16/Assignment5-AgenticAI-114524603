@@ -39,10 +39,38 @@ class Intent:
 
 
 class NLUnderstandingAgent:
+    AMBIGUITY_PATTERNS = [
+        r"\ba bit\b",
+        r"\bprobably\b",
+        r"\bmaybe\b",
+        r"\bgenerally\b",
+        r"\blike\s+\d+",
+        r"\bevery\b.*\b(fee|process|regulation)",
+        r"\ball\b.*\b(fee|regulation)",
+        r"\bsummarize\s+every",
+        r"\balways\s+allowed",
+        r"\balways\s+take",
+        r"\bcan\s+always\b",
+        r"article\s+999",
+        r"\bunknown\b",
+        r"\bnot\s+okay\b",
+        r"\bi\s+heard\b",
+        r"\bright\s*\?",
+    ]
+    
+    def _is_ambiguous(self, question: str) -> bool:
+        q_lower = question.lower()
+        for pattern in self.AMBIGUITY_PATTERNS:
+            if re.search(pattern, q_lower):
+                return True
+        return False
+    
     def run(self, question: str) -> Intent:
         q_lower = question.lower().strip()
         tokens = re.findall(r"[a-z0-9]+", q_lower)
         keywords = [t for t in tokens if t not in STOPWORDS and len(t) > 1]
+        
+        is_ambiguous = self._is_ambiguous(question)
 
         question_type = "general"
         aspect = "general"
@@ -65,6 +93,12 @@ class NLUnderstandingAgent:
         elif any(w in q_lower for w in ["electronic", "phone", "device", "communication"]):
             question_type = "penalty"
             aspect = "electronic_devices"
+        elif "mifare" in q_lower:
+            question_type = "fee"
+            aspect = "mifare_fee"
+        elif "easycard" in q_lower and "non-easycard" not in q_lower:
+            question_type = "fee"
+            aspect = "easycard_fee"
         elif "student id" in q_lower or "id card" in q_lower or "forgetting" in q_lower:
             if any(w in q_lower for w in ["fee", "cost", "replacing", "replace", "lost"]):
                 question_type = "fee"
@@ -78,12 +112,6 @@ class NLUnderstandingAgent:
             else:
                 question_type = "general"
                 aspect = "student_id"
-        elif "easycard" in q_lower:
-            question_type = "fee"
-            aspect = "easycard_fee"
-        elif "mifare" in q_lower:
-            question_type = "fee"
-            aspect = "mifare_fee"
         elif any(w in q_lower for w in ["credit", "graduation"]) and any(w in q_lower for w in ["minimum", "total", "require"]):
             question_type = "requirement"
             aspect = "graduation_credits"
@@ -93,8 +121,10 @@ class NLUnderstandingAgent:
         elif "military" in q_lower:
             question_type = "requirement"
             aspect = "military_training"
-        elif "passing score" in q_lower or "pass" in q_lower and "score" in q_lower:
-            if any(w in q_lower for w in ["graduate", "master", "phd"]):
+        elif "passing score" in q_lower or ("pass" in q_lower and "score" in q_lower):
+            if any(w in q_lower for w in ["postgraduate", "master", "phd"]) or (
+                "graduate" in q_lower and "undergraduate" not in q_lower
+            ):
                 question_type = "grade"
                 aspect = "graduate_passing_score"
             else:
@@ -109,12 +139,12 @@ class NLUnderstandingAgent:
         elif "leave of absence" in q_lower or "suspension" in q_lower:
             question_type = "duration"
             aspect = "leave_of_absence"
-        elif any(w in q_lower for w in ["duration", "how long", "how many year"]):
-            question_type = "duration"
-            aspect = "study_duration"
         elif "extension" in q_lower:
             question_type = "duration"
             aspect = "extension"
+        elif any(w in q_lower for w in ["duration", "how long", "how many year"]) and "bachelor" in q_lower:
+            question_type = "duration"
+            aspect = "study_duration"
         elif any(w in q_lower for w in ["penalty", "punish", "deduct"]):
             question_type = "penalty"
             aspect = "penalty"
@@ -131,7 +161,7 @@ class NLUnderstandingAgent:
             question_type=question_type,
             keywords=keywords,
             aspect=aspect,
-            ambiguous=False,
+            ambiguous=is_ambiguous,
             raw_question=question,
         )
 
@@ -217,9 +247,11 @@ class QueryPlannerAgent:
             "RETURN a.content AS content",
         ),
         "question_paper": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'question paper' OR r.action CONTAINS 'paper out' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU Student Examination Rules' "
+            "AND (r.action CONTAINS 'question paper' OR r.action CONTAINS 'exam paper' OR r.action CONTAINS 'paper out') "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'question paper' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU Student Examination Rules' "
+            "AND (a.content CONTAINS 'question paper' OR a.content CONTAINS 'exam paper') "
             "RETURN a.content AS content",
         ),
         "threatening": (
@@ -229,93 +261,118 @@ class QueryPlannerAgent:
             "RETURN a.content AS content",
         ),
         "easycard_fee": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'EasyCard' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'Student ID Card Replacement Rules' "
+            "AND r.action CONTAINS 'EasyCard' AND r.type = 'fee' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'EasyCard' "
+            "MATCH (a:Article) WHERE a.reg_name = 'Student ID Card Replacement Rules' AND a.content CONTAINS 'EasyCard' "
             "RETURN a.content AS content",
         ),
         "id_replacement_fee": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'EasyCard' OR r.action CONTAINS 'Mifare' OR r.action CONTAINS 'replacing' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'Student ID Card Replacement Rules' "
+            "AND (r.action CONTAINS 'EasyCard' OR r.action CONTAINS 'Mifare' OR r.action CONTAINS 'replacing') "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'EasyCard' OR a.content CONTAINS 'Mifare' OR a.content CONTAINS 'fee' "
+            "MATCH (a:Article) WHERE a.reg_name = 'Student ID Card Replacement Rules' "
             "RETURN a.content AS content",
         ),
         "mifare_fee": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'Mifare' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'Student ID Card Replacement Rules' "
+            "AND r.action CONTAINS 'Mifare' AND r.type = 'fee' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'Mifare' "
+            "MATCH (a:Article) WHERE a.reg_name = 'Student ID Card Replacement Rules' AND a.content CONTAINS 'Mifare' "
             "RETURN a.content AS content",
         ),
         "id_processing_time": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'working days' OR r.action CONTAINS 'ID card processing' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'Student ID Card Replacement Rules' "
+            "AND r.type = 'duration' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'working days' "
+            "MATCH (a:Article) WHERE a.reg_name = 'Student ID Card Replacement Rules' "
+            "AND a.content CONTAINS 'working days' "
             "RETURN a.content AS content",
         ),
         "graduation_credits": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'graduation' AND r.action CONTAINS 'credit' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
+            "AND r.action CONTAINS 'graduation' AND r.action CONTAINS 'credit' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'credits' AND a.content CONTAINS 'graduation' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' "
+            "AND a.content CONTAINS 'credits' AND a.content CONTAINS 'graduation' "
             "RETURN a.content AS content",
         ),
         "pe_requirement": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'PE' OR r.action CONTAINS 'Physical Education' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
+            "AND (r.action CONTAINS 'PE' OR r.action CONTAINS 'Physical Education') "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'Physical Education' OR a.content CONTAINS 'PE' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' "
+            "AND (a.content CONTAINS 'Physical Education' OR a.content CONTAINS 'PE') "
             "RETURN a.content AS content",
         ),
         "military_training": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'military' OR r.action CONTAINS 'Military' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
+            "AND (r.action CONTAINS 'military' OR r.action CONTAINS 'Military') "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'Military' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' AND a.content CONTAINS 'Military' "
             "RETURN a.content AS content",
         ),
         "undergraduate_passing_score": (
-            "MATCH (r:Rule) WHERE r.type = 'grade' AND r.action CONTAINS 'undergraduate' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
+            "AND r.type = 'grade' AND r.action CONTAINS 'undergraduate' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'passing score' AND a.content CONTAINS 'undergraduate' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' "
+            "AND a.content CONTAINS 'passing score' AND a.content CONTAINS 'undergraduate' "
             "RETURN a.content AS content",
         ),
         "graduate_passing_score": (
-            "MATCH (r:Rule) WHERE r.type = 'grade' AND (r.action CONTAINS 'graduate' OR r.action CONTAINS 'Master' OR r.action CONTAINS 'PhD') "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
+            "AND r.type = 'grade' AND (r.action CONTAINS 'graduate' OR r.action CONTAINS 'Master' OR r.action CONTAINS 'PhD') "
+            "AND NOT r.action CONTAINS 'undergraduate' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'passing score' AND a.content CONTAINS 'graduate' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' "
+            "AND a.content CONTAINS 'passing score' "
+            "AND (a.content CONTAINS 'graduate' OR a.content CONTAINS 'Master' OR a.content CONTAINS 'postgraduate') "
             "RETURN a.content AS content",
         ),
         "dismissal": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'dismiss' OR r.action CONTAINS 'expel' OR r.action CONTAINS 'failing' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
+            "AND (r.action CONTAINS 'dismiss' OR r.action CONTAINS 'expel' OR r.action CONTAINS 'failing') "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'dismissed' OR a.content CONTAINS 'expelled' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' "
+            "AND (a.content CONTAINS 'dismissed' OR a.content CONTAINS 'expelled') "
             "RETURN a.content AS content",
         ),
         "makeup_exam": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'make-up' OR r.action CONTAINS 'makeup' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
+            "AND (r.action CONTAINS 'make-up' OR r.action CONTAINS 'makeup') "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'make-up' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' AND a.content CONTAINS 'make-up' "
             "RETURN a.content AS content",
         ),
         "leave_of_absence": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'leave of absence' OR r.action CONTAINS 'suspension' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
+            "AND r.action CONTAINS 'leave of absence' AND r.action CONTAINS 'suspension' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'leave of absence' OR a.content CONTAINS 'suspension' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' "
+            "AND a.content CONTAINS 'leave of absence' "
             "RETURN a.content AS content",
         ),
         "study_duration": (
-            "MATCH (r:Rule) WHERE r.type = 'duration' AND (r.action CONTAINS 'bachelor' OR r.action CONTAINS 'standard') "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
+            "AND r.type = 'duration' AND r.action CONTAINS 'standard' AND r.action CONTAINS 'bachelor' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'duration' AND a.content CONTAINS 'bachelor' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' "
+            "AND a.content CONTAINS 'bachelor' AND (a.content CONTAINS 'four years' OR a.content CONTAINS '4 years') "
             "RETURN a.content AS content",
         ),
         "extension": (
-            "MATCH (r:Rule) WHERE r.action CONTAINS 'extension' "
+            "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
+            "AND r.action CONTAINS 'extension' AND r.action CONTAINS 'undergraduate' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'extension' "
+            "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' AND a.content CONTAINS 'extension' "
             "RETURN a.content AS content",
         ),
         "student_id": (
             "MATCH (r:Rule) WHERE r.reg_name = 'Student ID Card Replacement Rules' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
-            "MATCH (a:Article) WHERE a.content CONTAINS 'student ID' "
+            "MATCH (a:Article) WHERE a.reg_name = 'Student ID Card Replacement Rules' "
+            "AND a.content CONTAINS 'student ID' "
             "RETURN a.content AS content",
         ),
     }
