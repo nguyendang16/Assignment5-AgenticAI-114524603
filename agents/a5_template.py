@@ -291,10 +291,10 @@ class QueryPlannerAgent:
         ),
         "graduation_credits": (
             "MATCH (r:Rule) WHERE r.reg_name = 'NCU General Regulations' "
-            "AND r.action CONTAINS 'graduation' AND r.action CONTAINS 'credit' "
+            "AND r.action CONTAINS 'minimum' AND r.action CONTAINS 'credit' AND r.action CONTAINS 'graduation' "
             "RETURN r.action AS action, r.result AS result, r.type AS type, r.art_ref AS art_ref, r.reg_name AS reg_name",
             "MATCH (a:Article) WHERE a.reg_name = 'NCU General Regulations' "
-            "AND a.content CONTAINS 'credits' AND a.content CONTAINS 'graduation' "
+            "AND a.content CONTAINS '128' AND a.content CONTAINS 'credit' "
             "RETURN a.content AS content",
         ),
         "pe_requirement": (

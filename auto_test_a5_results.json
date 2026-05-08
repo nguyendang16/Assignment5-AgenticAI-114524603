@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-08T02:28:39.397162Z",
+  "generated_at": "2026-05-08T02:37:36.624254Z",
   "summary": {
     "total_cases": 40,
     "passed_cases": 40,
@@ -27,7 +27,7 @@
       "expected": "20 minutes.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0569,
+      "latency_sec": 0.0595,
       "contract": {
         "required_fields": [
           "answer",
@@ -63,7 +63,7 @@
       "expected": "No, you must wait 40 minutes.",
       "pass": true,
       "reason": "token overlap match",
-      "latency_sec": 0.0035,
+      "latency_sec": 0.0044,
       "contract": {
         "required_fields": [
           "answer",
@@ -99,7 +99,7 @@
       "expected": "5 points deduction.",
       "pass": true,
       "reason": "token overlap match",
-      "latency_sec": 0.0043,
+      "latency_sec": 0.003,
       "contract": {
         "required_fields": [
           "answer",
@@ -135,7 +135,7 @@
       "expected": "5 points deduction, or up to zero score.",
       "pass": true,
       "reason": "token overlap match",
-      "latency_sec": 0.0075,
+      "latency_sec": 0.004,
       "contract": {
         "required_fields": [
           "answer",
@@ -207,7 +207,7 @@
       "expected": "No, the score will be zero.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0046,
+      "latency_sec": 0.0025,
       "contract": {
         "required_fields": [
           "answer",
@@ -243,7 +243,7 @@
       "expected": "Zero score and disciplinary action.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0076,
+      "latency_sec": 0.004,
       "contract": {
         "required_fields": [
           "answer",
@@ -279,7 +279,7 @@
       "expected": "200 NTD.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0045,
+      "latency_sec": 0.0061,
       "contract": {
         "required_fields": [
           "answer",
@@ -351,7 +351,7 @@
       "expected": "3 working days.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0085,
+      "latency_sec": 0.0035,
       "contract": {
         "required_fields": [
           "answer",
@@ -387,6 +387,42 @@
       "expected": "128 credits.",
       "pass": true,
       "reason": "token overlap match",
+      "latency_sec": 0.0071,
+      "contract": {
+        "required_fields": [
+          "answer",
+          "safety_decision",
+          "diagnosis",
+          "repair_attempted",
+          "repair_changed",
+          "explanation"
+        ],
+        "field_presence": {
+          "answer": true,
+          "safety_decision": true,
+          "diagnosis": true,
+          "repair_attempted": true,
+          "repair_changed": true,
+          "explanation": true
+        },
+        "missing_fields": []
+      },
+      "output": {
+        "answer": "minimum total credits required for undergraduate graduation 128 credits The University adopts the system of academic years and course credits. Undergraduate students are expected to complete their studies within four years, with no fewer than 128 course credits earned in total. Students are required to take five physical education (PE) courses in five semesters (including Freshman PE I, Freshman PE II, and three PE interest electives in the following three semesters), but any course credit earned from these five PE courses do not count towards the number of course credits required for graduation. Students are not permitted to take more than one PE interest elective with a course title identical to other PE interest electives' (except students on school teams and students who take Adapted PE). Students who have completed these five PE courses are eligible to select a PE interest elective with one course credit, but the credit does not count towards the number of course credits required for graduation. Student service-learning is a zero-credit required course that must be taken in two semesters (the course numbers of both courses of student service-learning taken by a student shall not be identical). Military Training is an elective whose credit is not included in the number of credits required for graduation. Students who wish to apply for a course waiver/transfer must do so per the University’s Credit Waiver Guidelines, which shall be stipulated separately and implemented upon approval by the Academic Affairs Committee. The said guidelines shall also be submitted to the MOE to be archived.",
+        "safety_decision": "ALLOW",
+        "diagnosis": "SUCCESS",
+        "repair_attempted": false,
+        "repair_changed": false,
+        "explanation": "Intent=requirement | Security=ALLOW | Diagnosis=SUCCESS | Answer: minimum total credits required for undergraduate graduation 128 credits The University adopts the system of academic years and course credits. Undergraduate students are expected to complete their studies within four years, with no fewer than 128 course credits earned in total. Students are required to take five physical education (PE) courses in five semesters (including Freshman PE I, Freshman PE II, and three PE interest electives in the following three semesters), but any course credit earned from these five PE courses do not count towards the number of course credits required for graduation. Students are not permitted to take more than one PE interest elective with a course title identical to other PE interest electives' (except students on school teams and students who take Adapted PE). Students who have completed these five PE courses are eligible to select a PE interest elective with one course credit, but the credit does not count towards the number of course credits required for graduation. Student service-learning is a zero-credit required course that must be taken in two semesters (the course numbers of both courses of student service-learning taken by a student shall not be identical). Military Training is an elective whose credit is not included in the number of credits required for graduation. Students who wish to apply for a course waiver/transfer must do so per the University’s Credit Waiver Guidelines, which shall be stipulated separately and implemented upon approval by the Academic Affairs Committee. The said guidelines shall also be submitted to the MOE to be archived."
+      }
+    },
+    {
+      "id": 12,
+      "type": "normal",
+      "question": "How many semesters of Physical Education (PE) are required for undergraduate students?",
+      "expected": "5 semesters.",
+      "pass": true,
+      "reason": "exact/contain match",
       "latency_sec": 0.0045,
       "contract": {
         "required_fields": [
@@ -408,48 +444,12 @@
         "missing_fields": []
       },
       "output": {
-        "answer": "minimum total credits required for undergraduate graduation 128 credits Military Training credits toward graduation not counted toward graduation credits Requirements for postgraduate students' graduation are determined by their department (graduate institute, in-service program, or degree program), but the number of course credits required for graduat The University adopts the system of academic years and course credits. Undergraduate students are expected to complete their studies within four years, with no fewer than 128 course credits earned in total. Students are required to take five physical education (PE) courses in five semesters (including Freshman PE I, Freshman PE II, and three PE interest electives in the following three semesters), but any course credit earned from these five PE courses do not count towards the number of course credits required for graduation. Students are not permitted to take more than one PE interest elective with a course title identical to other PE interest electives' (except students on school teams and students who take Adapted PE). Students who have completed these five PE courses are eligible to select a PE interest elective with one course credit, but the credit does not count towards the number of course credits required for graduation. Student service-learning is a zero-credit required course that must be taken in two semesters (the course numbers of both courses of student service-learning taken by a student shall not be identical). Military Training is an elective whose credit is not included in the number of credits required for graduation. Students who wish to apply for a course waiver/transfer must do so per the University’s Credit Waiver Guidelines, which shall be stipulated separately and implemented upon approval by the Academic Affairs Committee. The said guidelines shall also be submitted to the MOE to be archived.",
+        "answer": "5 semesters. semesters of Physical Education PE required for undergraduates 5 semesters The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military Training and Physical Education if these elective courses are taken by the student in the semester. Students who have completed their period of study and meet the following requirements shall be permitted to graduate: 1. having met all course requirements prescribed by the University and the undergraduate program of the department in which the students are enrolled within the required period and having met the requirements prescribed by other relevant regulations; 2. passed the elective course \" Second Year English\" or received a passing grade on an English language proficiency test recognized by the University's Language Center (those who are exempt from taking an English proficiency test per the University’s Implementation Guidelines on Taking and Teaching the Courses of Freshman Foreign Language and Second Year English may be free from the regulations in this article). If any college establishes its own standards for passing foreign language proficiency tests, and if the standards are approved by the Academic Affairs Committee, the standards shall take precedence over the regulations in this article for the students at the college. 3. received a satisfactory conduct grade every semester; 4. passed student service-learning per the University's Implementation Guidelines on student service-learning. In addition to meeting each requirement listed in the previous paragraph, foreign, Hong Kong, and Macau undergraduates of the University whose graduating grades and schools are equivalent to second grade of senior high school in Taiwan shall earn 12 more course credits required for graduation (excluding military training and PE) if they applied for the University's admission as applicants of equivalent educational levels. The University shall confer bachelor's degrees on students who have met the aforementioned graduation requirements and have completed the process to leave school per relevant regulations. The month marked on a diploma shall be January if the diploma is conferred in the first semester, and June if in the second semester. Students who have met all course requirements and have earned all required course credits within the required period of study shall graduate immediately (except those taking a double major, a minor, a minor program, the teacher education program, a dual degree program, or an overseas exchange program that is approved by NCU). Students who are unable to meet their course requirements or earn enough course credits within the required period of study may extend their period of study for up to two years. If students who take a double major have met all course requirements and have earned all required course credits of their home department (or home degree program) but have not managed to meet all course requirements and earn all required course credits of the department (or degree program) of another major before their extended period of study expires, they may extend their period of study again for another academic year. If students lack any required course credits that must be earned by taking any remedial courses or retake courses that are offered only in the second semester of their extended period of study, they shall be exempt from enrollment in the first semester and proceed to apply for a suspension of studies (the suspended semester does not count towards their maximum period of suspension of studies). Students who have been permitted to extend their period of study must take at least one course after they enroll (except those students who have been recommended by the University to take courses at collaborative foreign universities), but this course may not be a PE, military training, or student-service learning course. Any student who violates this regulation shall be forced to withdraw from school. Regarding a required PE course, the regulations for retaking it or taking it as a make- up course are as follows: 1. Students who failed Freshman PE I or II or who did not take either of the courses shall retake it or take it as a make-up course. Those who failed any PE course during the third to the fifth semester shall retake it in the next semester. Those who did not take any of such courses and therefore must take any of such courses as a make-up course are allowed to take only one PE course per semester. 2. Those who retake any PE courses are allowed to take at most two PE courses per semester. Section Three: Master's Programs and Doctoral Programs Chapter One: Admission.",
         "safety_decision": "ALLOW",
         "diagnosis": "SUCCESS",
         "repair_attempted": false,
         "repair_changed": false,
-        "explanation": "Intent=requirement | Security=ALLOW | Diagnosis=SUCCESS | Answer: minimum total credits required for undergraduate graduation 128 credits Military Training credits toward graduation not counted toward graduation credits Requirements for postgraduate students' graduation are determined by their department (graduate institute, in-service program, or degree program), but the number of course credits required for graduat The University adopts the system of academic years and course credits. Undergraduate students are expected to complete their studies within four years, with no fewer than 128 course credits earned in total. Students are required to take five physical education (PE) courses in five semesters (including Freshman PE I, Freshman PE II, and three PE interest electives in the following three semesters), but any course credit earned from these five PE courses do not count towards the number of course credits required for graduation. Students are not permitted to take more than one PE interest elective with a course title identical to other PE interest electives' (except students on school teams and students who take Adapted PE). Students who have completed these five PE courses are eligible to select a PE interest elective with one course credit, but the credit does not count towards the number of course credits required for graduation. Student service-learning is a zero-credit required course that must be taken in two semesters (the course numbers of both courses of student service-learning taken by a student shall not be identical). Military Training is an elective whose credit is not included in the number of credits required for graduation. Students who wish to apply for a course waiver/transfer must do so per the University’s Credit Waiver Guidelines, which shall be stipulated separately and implemented upon approval by the Academic Affairs Committee. The said guidelines shall also be submitted to the MOE to be archived."
-      }
-    },
-    {
-      "id": 12,
-      "type": "normal",
-      "question": "How many semesters of Physical Education (PE) are required for undergraduate students?",
-      "expected": "5 semesters.",
-      "pass": true,
-      "reason": "exact/contain match",
-      "latency_sec": 0.0035,
-      "contract": {
-        "required_fields": [
-          "answer",
-          "safety_decision",
-          "diagnosis",
-          "repair_attempted",
-          "repair_changed",
-          "explanation"
-        ],
-        "field_presence": {
-          "answer": true,
-          "safety_decision": true,
-          "diagnosis": true,
-          "repair_attempted": true,
-          "repair_changed": true,
-          "explanation": true
-        },
-        "missing_fields": []
-      },
-      "output": {
-        "answer": "5 semesters. semesters of Physical Education PE required for undergraduates 5 semesters The University adopts the system of academic years and course credits. Undergraduate students are expected to complete their studies within four years, with no fewer than 128 course credits earned in total. Students are required to take five physical education (PE) courses in five semesters (including Freshman PE I, Freshman PE II, and three PE interest electives in the following three semesters), but any course credit earned from these five PE courses do not count towards the number of course credits required for graduation. Students are not permitted to take more than one PE interest elective with a course title identical to other PE interest electives' (except students on school teams and students who take Adapted PE). Students who have completed these five PE courses are eligible to select a PE interest elective with one course credit, but the credit does not count towards the number of course credits required for graduation. Student service-learning is a zero-credit required course that must be taken in two semesters (the course numbers of both courses of student service-learning taken by a student shall not be identical). Military Training is an elective whose credit is not included in the number of credits required for graduation. Students who wish to apply for a course waiver/transfer must do so per the University’s Credit Waiver Guidelines, which shall be stipulated separately and implemented upon approval by the Academic Affairs Committee. The said guidelines shall also be submitted to the MOE to be archived. The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military Training and Physical Education if these elective courses are taken by the student in the semester. Students who have completed their period of study and meet the following requirements shall be permitted to graduate: 1. having met all course requirements prescribed by the University and the undergraduate program of the department in which the students are enrolled within the required period and having met the requirements prescribed by other relevant regulations; 2. passed the elective course \" Second Year English\" or received a passing grade on an English language proficiency test recognized by the University's Language Center (those who are exempt from taking an English proficiency test per the University’s Implementation Guidelines on Taking and Teaching the Courses of Freshman Foreign Language and Second Year English may be free from the regulations in this article). If any college establishes its own standards for passing foreign language proficiency tests, and if the standards are approved by the Academic Affairs Committee, the standards shall take precedence over the regulations in this article for the students at the college. 3. received a satisfactory conduct grade every semester; 4. passed student service-learning per the University's Implementation Guidelines on student service-learning. In addition to meeting each requirement listed in the previous paragraph, foreign, Hong Kong, and Macau undergraduates of the University whose graduating grades and schools are equivalent to second grade of senior high school in Taiwan shall earn 12 more course credits required for graduation (excluding military training and PE) if they applied for the University's admission as applicants of equivalent educational levels. The University shall confer bachelor's degrees on students who have met the aforementioned graduation requirements and have completed the process to leave school per relevant regulations. The month marked on a diploma shall be January if the diploma is conferred in the first semester, and June if in the second semester. Students who have met all course requirements and have earned all required course credits within the required period of study shall graduate immediately (except those taking a double major, a minor, a minor program, the teacher education program, a dual degree program, or an overseas exchange program that is approved by NCU). Students who are unable to meet their course requirements or earn enough course credits within the required period of study may extend their period of study for up to two years. If students who take a double major have met all course requirements and have earned all required course credits of their home department (or home degree program) but have not managed to meet all course requirements and earn all required course credits of the department (or degree program) of another major before their extended period of study expires, they may extend their period of study again for another academic year. If students lack any required course credits that must be earned by taking any remedial courses or retake courses that are offered only in the second semester of their extended period of study, they shall be exempt from enrollment in the first semester and proceed to apply for a suspension of studies (the suspended semester does not count towards their maximum period of suspension of studies). Students who have been permitted to extend their period of study must take at least one course after they enroll (except those students who have been recommended by the University to take courses at collaborative foreign universities), but this course may not be a PE, military training, or student-service learning course. Any student who violates this regulation shall be forced to withdraw from school.",
-        "safety_decision": "ALLOW",
-        "diagnosis": "SUCCESS",
-        "repair_attempted": false,
-        "repair_changed": false,
-        "explanation": "Intent=requirement | Security=ALLOW | Diagnosis=SUCCESS | Answer: 5 semesters. semesters of Physical Education PE required for undergraduates 5 semesters The University adopts the system of academic years and course credits. Undergraduate students are expected to complete their studies within four years, with no fewer than 128 course credits earned in total. Students are required to take five physical education (PE) courses in five semesters (including Freshman PE I, Freshman PE II, and three PE interest electives in the following three semesters), but any course credit earned from these five PE courses do not count towards the number of course credits required for graduation. Students are not permitted to take more than one PE interest elective with a course title identical to other PE interest electives' (except students on school teams and students who take Adapted PE). Students who have completed these five PE courses are eligible to select a PE interest elective with one course credit, but the credit does not count towards the number of course credits required for graduation. Student service-learning is a zero-credit required course that must be taken in two semesters (the course numbers of both courses of student service-learning taken by a student shall not be identical). Military Training is an elective whose credit is not included in the number of credits required for graduation. Students who wish to apply for a course waiver/transfer must do so per the University’s Credit Waiver Guidelines, which shall be stipulated separately and implemented upon approval by the Academic Affairs Committee. The said guidelines shall also be submitted to the MOE to be archived. The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military Training and Physical Education if these elective courses are taken by the student in the semester. Students who have completed their period of study and meet the following requirements shall be permitted to graduate: 1. having met all course requirements prescribed by the University and the undergraduate program of the department in which the students are enrolled within the required period and having met the requirements prescribed by other relevant regulations; 2. passed the elective course \" Second Year English\" or received a passing grade on an English language proficiency test recognized by the University's Language Center (those who are exempt from taking an English proficiency test per the University’s Implementation Guidelines on Taking and Teaching the Courses of Freshman Foreign Language and Second Year English may be free from the regulations in this article). If any college establishes its own standards for passing foreign language proficiency tests, and if the standards are approved by the Academic Affairs Committee, the standards shall take precedence over the regulations in this article for the students at the college. 3. received a satisfactory conduct grade every semester; 4. passed student service-learning per the University's Implementation Guidelines on student service-learning. In addition to meeting each requirement listed in the previous paragraph, foreign, Hong Kong, and Macau undergraduates of the University whose graduating grades and schools are equivalent to second grade of senior high school in Taiwan shall earn 12 more course credits required for graduation (excluding military training and PE) if they applied for the University's admission as applicants of equivalent educational levels. The University shall confer bachelor's degrees on students who have met the aforementioned graduation requirements and have completed the process to leave school per relevant regulations. The month marked on a diploma shall be January if the diploma is conferred in the first semester, and June if in the second semester. Students who have met all course requirements and have earned all required course credits within the required period of study shall graduate immediately (except those taking a double major, a minor, a minor program, the teacher education program, a dual degree program, or an overseas exchange program that is approved by NCU). Students who are unable to meet their course requirements or earn enough course credits within the required period of study may extend their period of study for up to two years. If students who take a double major have met all course requirements and have earned all required course credits of their home department (or home degree program) but have not managed to meet all course requirements and earn all required course credits of the department (or degree program) of another major before their extended period of study expires, they may extend their period of study again for another academic year. If students lack any required course credits that must be earned by taking any remedial courses or retake courses that are offered only in the second semester of their extended period of study, they shall be exempt from enrollment in the first semester and proceed to apply for a suspension of studies (the suspended semester does not count towards their maximum period of suspension of studies). Students who have been permitted to extend their period of study must take at least one course after they enroll (except those students who have been recommended by the University to take courses at collaborative foreign universities), but this course may not be a PE, military training, or student-service learning course. Any student who violates this regulation shall be forced to withdraw from school."
+        "explanation": "Intent=requirement | Security=ALLOW | Diagnosis=SUCCESS | Answer: 5 semesters. semesters of Physical Education PE required for undergraduates 5 semesters The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military Training and Physical Education if these elective courses are taken by the student in the semester. Students who have completed their period of study and meet the following requirements shall be permitted to graduate: 1. having met all course requirements prescribed by the University and the undergraduate program of the department in which the students are enrolled within the required period and having met the requirements prescribed by other relevant regulations; 2. passed the elective course \" Second Year English\" or received a passing grade on an English language proficiency test recognized by the University's Language Center (those who are exempt from taking an English proficiency test per the University’s Implementation Guidelines on Taking and Teaching the Courses of Freshman Foreign Language and Second Year English may be free from the regulations in this article). If any college establishes its own standards for passing foreign language proficiency tests, and if the standards are approved by the Academic Affairs Committee, the standards shall take precedence over the regulations in this article for the students at the college. 3. received a satisfactory conduct grade every semester; 4. passed student service-learning per the University's Implementation Guidelines on student service-learning. In addition to meeting each requirement listed in the previous paragraph, foreign, Hong Kong, and Macau undergraduates of the University whose graduating grades and schools are equivalent to second grade of senior high school in Taiwan shall earn 12 more course credits required for graduation (excluding military training and PE) if they applied for the University's admission as applicants of equivalent educational levels. The University shall confer bachelor's degrees on students who have met the aforementioned graduation requirements and have completed the process to leave school per relevant regulations. The month marked on a diploma shall be January if the diploma is conferred in the first semester, and June if in the second semester. Students who have met all course requirements and have earned all required course credits within the required period of study shall graduate immediately (except those taking a double major, a minor, a minor program, the teacher education program, a dual degree program, or an overseas exchange program that is approved by NCU). Students who are unable to meet their course requirements or earn enough course credits within the required period of study may extend their period of study for up to two years. If students who take a double major have met all course requirements and have earned all required course credits of their home department (or home degree program) but have not managed to meet all course requirements and earn all required course credits of the department (or degree program) of another major before their extended period of study expires, they may extend their period of study again for another academic year. If students lack any required course credits that must be earned by taking any remedial courses or retake courses that are offered only in the second semester of their extended period of study, they shall be exempt from enrollment in the first semester and proceed to apply for a suspension of studies (the suspended semester does not count towards their maximum period of suspension of studies). Students who have been permitted to extend their period of study must take at least one course after they enroll (except those students who have been recommended by the University to take courses at collaborative foreign universities), but this course may not be a PE, military training, or student-service learning course. Any student who violates this regulation shall be forced to withdraw from school. Regarding a required PE course, the regulations for retaking it or taking it as a make- up course are as follows: 1. Students who failed Freshman PE I or II or who did not take either of the courses shall retake it or take it as a make-up course. Those who failed any PE course during the third to the fifth semester shall retake it in the next semester. Those who did not take any of such courses and therefore must take any of such courses as a make-up course are allowed to take only one PE course per semester. 2. Those who retake any PE courses are allowed to take at most two PE courses per semester. Section Three: Master's Programs and Doctoral Programs Chapter One: Admission."
       }
     },
     {
@@ -459,7 +459,7 @@
       "expected": "No.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0075,
+      "latency_sec": 0.004,
       "contract": {
         "required_fields": [
           "answer",
@@ -480,12 +480,12 @@
         "missing_fields": []
       },
       "output": {
-        "answer": "No. Military Training credits toward graduation not counted toward graduation credits The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military T The University adopts the system of academic years and course credits. Undergraduate students are expected to complete their studies within four years, with no fewer than 128 course credits earned in total. Students are required to take five physical education (PE) courses in five semesters (including Freshman PE I, Freshman PE II, and three PE interest electives in the following three semesters), but any course credit earned from these five PE courses do not count towards the number of course credits required for graduation. Students are not permitted to take more than one PE interest elective with a course title identical to other PE interest electives' (except students on school teams and students who take Adapted PE). Students who have completed these five PE courses are eligible to select a PE interest elective with one course credit, but the credit does not count towards the number of course credits required for graduation. Student service-learning is a zero-credit required course that must be taken in two semesters (the course numbers of both courses of student service-learning taken by a student shall not be identical). Military Training is an elective whose credit is not included in the number of credits required for graduation. Students who wish to apply for a course waiver/transfer must do so per the University’s Credit Waiver Guidelines, which shall be stipulated separately and implemented upon approval by the Academic Affairs Committee. The said guidelines shall also be submitted to the MOE to be archived. The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military Training and Physical Education if these elective courses are taken by the student in the semester. Students may apply for a suspension of studies for one semester to two academic years each time they apply. In principle, the maximum period a student may suspend their studies is two academic years. However, if a student's maximum period of suspension has come to an end but, due to a serious illness or any other serious reasons, he or she must apply for another suspension of studies, then his or her period of suspension may be extended for another two years if the director of the student's department (degree program) and the vice president of academic affairs deem it proper and thus approve the application. Students whose suspension of studies has come to an end must apply for a resumption of studies or face expulsion from the University. Students who are required to do their military service during a period of suspension must submit their Proof of Current Military Status to apply for an extension to their suspension of studies. When the extended period expires, the students may submit their Military Service Discharge Order to apply for a resumption of studies (the period in which a student does his military service does not count towards his maximum period of suspension of studies). Students may present relevant documentation to apply for a suspension of studies due to pregnancy, childbirth, or raising any child under three years old. The period of this sort of suspension of studies does not count towards a student's maximum period of suspension of studies. When the period of the suspension expires, the students may submit the birth certificates of their children or relevant documentation to apply for a resumption of studies. If relevant laws prescribe otherwise, the laws shall take precedence over the regulations in this article.",
+        "answer": "No. Military Training credits toward graduation not counted toward graduation credits The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military T The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military Training and Physical Education if these elective courses are taken by the student in the semester. Students may apply for a suspension of studies for one semester to two academic years each time they apply. In principle, the maximum period a student may suspend their studies is two academic years. However, if a student's maximum period of suspension has come to an end but, due to a serious illness or any other serious reasons, he or she must apply for another suspension of studies, then his or her period of suspension may be extended for another two years if the director of the student's department (degree program) and the vice president of academic affairs deem it proper and thus approve the application. Students whose suspension of studies has come to an end must apply for a resumption of studies or face expulsion from the University. Students who are required to do their military service during a period of suspension must submit their Proof of Current Military Status to apply for an extension to their suspension of studies. When the extended period expires, the students may submit their Military Service Discharge Order to apply for a resumption of studies (the period in which a student does his military service does not count towards his maximum period of suspension of studies). Students may present relevant documentation to apply for a suspension of studies due to pregnancy, childbirth, or raising any child under three years old. The period of this sort of suspension of studies does not count towards a student's maximum period of suspension of studies. When the period of the suspension expires, the students may submit the birth certificates of their children or relevant documentation to apply for a resumption of studies. If relevant laws prescribe otherwise, the laws shall take precedence over the regulations in this article. A freshman who meets one of the following conditions may apply to the Office of Academic Affairs for retention of admission status by the registration deadline. 1. The freshman requires long-term medical treatment due to serious illness and can present medical documentation (verification) from a regional hospital or medical center contracted with National Health Insurance Administration (NHIA). 2. The freshman holds a certificate of a low-income household issued by the local government at a village level or above. 3. The freshman is an overseas Chinese student, foreign student, or mainland Chinese student who cannot report for registration on time due to unforeseen reasons. 4. The freshman has to do his military service after being admitted into the University. 5. The freshman is pregnant, delivering a baby, or raising any child under three years old and can present documentation proving the stated conditions. 6. The freshman is unable to report for registration in the current semester due to force majeure. 7. The freshman's condition meets relevant laws and regulations. Students who apply for retention of admission status may defer their enrollment once their applications are granted, and they do not have to pay any fees during the period wherein their admission status is reserved. The period for the students to reserve their admission status is limited to one year; however, if relevant laws prescribe otherwise, the limitation shall be in accordance with the laws. Students who have to do their military service during the said period may present their Proof of Current Military Status to apply for extending the retention of their admission status. When the extended period expires, the students may submit their Military Service Discharge Order to apply for enrollment at the University. Transfer students shall not apply for retention of admission status unless they meet the condition stated in Article 6, Paragraph 1, Subparagraph 5.",
         "safety_decision": "ALLOW",
         "diagnosis": "SUCCESS",
         "repair_attempted": false,
         "repair_changed": false,
-        "explanation": "Intent=requirement | Security=ALLOW | Diagnosis=SUCCESS | Answer: No. Military Training credits toward graduation not counted toward graduation credits The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military T The University adopts the system of academic years and course credits. Undergraduate students are expected to complete their studies within four years, with no fewer than 128 course credits earned in total. Students are required to take five physical education (PE) courses in five semesters (including Freshman PE I, Freshman PE II, and three PE interest electives in the following three semesters), but any course credit earned from these five PE courses do not count towards the number of course credits required for graduation. Students are not permitted to take more than one PE interest elective with a course title identical to other PE interest electives' (except students on school teams and students who take Adapted PE). Students who have completed these five PE courses are eligible to select a PE interest elective with one course credit, but the credit does not count towards the number of course credits required for graduation. Student service-learning is a zero-credit required course that must be taken in two semesters (the course numbers of both courses of student service-learning taken by a student shall not be identical). Military Training is an elective whose credit is not included in the number of credits required for graduation. Students who wish to apply for a course waiver/transfer must do so per the University’s Credit Waiver Guidelines, which shall be stipulated separately and implemented upon approval by the Academic Affairs Committee. The said guidelines shall also be submitted to the MOE to be archived. The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military Training and Physical Education if these elective courses are taken by the student in the semester. Students may apply for a suspension of studies for one semester to two academic years each time they apply. In principle, the maximum period a student may suspend their studies is two academic years. However, if a student's maximum period of suspension has come to an end but, due to a serious illness or any other serious reasons, he or she must apply for another suspension of studies, then his or her period of suspension may be extended for another two years if the director of the student's department (degree program) and the vice president of academic affairs deem it proper and thus approve the application. Students whose suspension of studies has come to an end must apply for a resumption of studies or face expulsion from the University. Students who are required to do their military service during a period of suspension must submit their Proof of Current Military Status to apply for an extension to their suspension of studies. When the extended period expires, the students may submit their Military Service Discharge Order to apply for a resumption of studies (the period in which a student does his military service does not count towards his maximum period of suspension of studies). Students may present relevant documentation to apply for a suspension of studies due to pregnancy, childbirth, or raising any child under three years old. The period of this sort of suspension of studies does not count towards a student's maximum period of suspension of studies. When the period of the suspension expires, the students may submit the birth certificates of their children or relevant documentation to apply for a resumption of studies. If relevant laws prescribe otherwise, the laws shall take precedence over the regulations in this article."
+        "explanation": "Intent=requirement | Security=ALLOW | Diagnosis=SUCCESS | Answer: No. Military Training credits toward graduation not counted toward graduation credits The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military T The total number of course credits of the courses a student takes in any semester referenced in Articles 21, 22, and 23 shall include the number of course credits of the elective courses of Military Training and Physical Education if these elective courses are taken by the student in the semester. Students may apply for a suspension of studies for one semester to two academic years each time they apply. In principle, the maximum period a student may suspend their studies is two academic years. However, if a student's maximum period of suspension has come to an end but, due to a serious illness or any other serious reasons, he or she must apply for another suspension of studies, then his or her period of suspension may be extended for another two years if the director of the student's department (degree program) and the vice president of academic affairs deem it proper and thus approve the application. Students whose suspension of studies has come to an end must apply for a resumption of studies or face expulsion from the University. Students who are required to do their military service during a period of suspension must submit their Proof of Current Military Status to apply for an extension to their suspension of studies. When the extended period expires, the students may submit their Military Service Discharge Order to apply for a resumption of studies (the period in which a student does his military service does not count towards his maximum period of suspension of studies). Students may present relevant documentation to apply for a suspension of studies due to pregnancy, childbirth, or raising any child under three years old. The period of this sort of suspension of studies does not count towards a student's maximum period of suspension of studies. When the period of the suspension expires, the students may submit the birth certificates of their children or relevant documentation to apply for a resumption of studies. If relevant laws prescribe otherwise, the laws shall take precedence over the regulations in this article. A freshman who meets one of the following conditions may apply to the Office of Academic Affairs for retention of admission status by the registration deadline. 1. The freshman requires long-term medical treatment due to serious illness and can present medical documentation (verification) from a regional hospital or medical center contracted with National Health Insurance Administration (NHIA). 2. The freshman holds a certificate of a low-income household issued by the local government at a village level or above. 3. The freshman is an overseas Chinese student, foreign student, or mainland Chinese student who cannot report for registration on time due to unforeseen reasons. 4. The freshman has to do his military service after being admitted into the University. 5. The freshman is pregnant, delivering a baby, or raising any child under three years old and can present documentation proving the stated conditions. 6. The freshman is unable to report for registration in the current semester due to force majeure. 7. The freshman's condition meets relevant laws and regulations. Students who apply for retention of admission status may defer their enrollment once their applications are granted, and they do not have to pay any fees during the period wherein their admission status is reserved. The period for the students to reserve their admission status is limited to one year; however, if relevant laws prescribe otherwise, the limitation shall be in accordance with the laws. Students who have to do their military service during the said period may present their Proof of Current Military Status to apply for extending the retention of their admission status. When the extended period expires, the students may submit their Military Service Discharge Order to apply for enrollment at the University. Transfer students shall not apply for retention of admission status unless they meet the condition stated in Article 6, Paragraph 1, Subparagraph 5."
       }
     },
     {
@@ -495,7 +495,7 @@
       "expected": "4 years.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0035,
+      "latency_sec": 0.0066,
       "contract": {
         "required_fields": [
           "answer",
@@ -531,7 +531,7 @@
       "expected": "2 years.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.006,
+      "latency_sec": 0.004,
       "contract": {
         "required_fields": [
           "answer",
@@ -567,7 +567,7 @@
       "expected": "60 points.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0063,
+      "latency_sec": 0.004,
       "contract": {
         "required_fields": [
           "answer",
@@ -603,7 +603,7 @@
       "expected": "70 points.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0035,
+      "latency_sec": 0.0057,
       "contract": {
         "required_fields": [
           "answer",
@@ -639,7 +639,7 @@
       "expected": "Failing more than half (1/2) of credits for two semesters.",
       "pass": true,
       "reason": "token overlap match",
-      "latency_sec": 0.0085,
+      "latency_sec": 0.0055,
       "contract": {
         "required_fields": [
           "answer",
@@ -675,7 +675,7 @@
       "expected": "No.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0049,
+      "latency_sec": 0.004,
       "contract": {
         "required_fields": [
           "answer",
@@ -711,7 +711,7 @@
       "expected": "2 academic years.",
       "pass": true,
       "reason": "exact/contain match",
-      "latency_sec": 0.0043,
+      "latency_sec": 0.0051,
       "contract": {
         "required_fields": [
           "answer",
@@ -747,7 +747,7 @@
       "expected": "",
       "pass": true,
       "reason": "failure handled with diagnosis=SUCCESS",
-      "latency_sec": 0.023,
+      "latency_sec": 0.0104,
       "contract": {
         "required_fields": [
           "answer",
@@ -783,7 +783,7 @@
       "expected": "",
       "pass": true,
       "reason": "failure handled with diagnosis=SUCCESS",
-      "latency_sec": 0.0201,
+      "latency_sec": 0.0175,
       "contract": {
         "required_fields": [
           "answer",
@@ -819,7 +819,7 @@
       "expected": "",
       "pass": true,
       "reason": "failure handled with diagnosis=SUCCESS",
-      "latency_sec": 0.0176,
+      "latency_sec": 0.0134,
       "contract": {
         "required_fields": [
           "answer",
@@ -840,12 +840,12 @@
         "missing_fields": []
       },
       "output": {
-        "answer": "These regulations have been formulated expressly to ensure that students are fully apprised of the rules and regulations that must be respected during the taking of exams. Students taking exams at this University must comply with the regulations written here unless otherwise specified. Prior to taking an exam, students should carefully read any announcements or bulletins relating to the exam. student arriving more than 20 minutes late to exam not permitted to enter the exam room, barred from exam The evaluations of academic performance at NCU takes the forms as follows: 1. common tests: given by teachers at any time; 2. interim tests: given by teachers during class hours; 3. mid-term exams: given by teachers in the middle of a semester; 4. final exams: given by teachers within a specified period at the end of a semester; 5. term papers: assigned by teachers as they see fit.",
+        "answer": "These regulations have been formulated expressly to ensure that students are fully apprised of the rules and regulations that must be respected during the taking of exams. Students taking exams at this University must comply with the regulations written here unless otherwise specified. Prior to taking an exam, students should carefully read any announcements or bulletins relating to the exam. student arriving more than 20 minutes late to exam not permitted to enter the exam room, barred from exam Students who fail any courses in any semester should not receive any make-up exams for the failed courses. Students should retake compulsory courses if they fail them.",
         "safety_decision": "ALLOW",
         "diagnosis": "SUCCESS",
         "repair_attempted": true,
         "repair_changed": true,
-        "explanation": "Intent=exam | Security=ALLOW | Diagnosis=SUCCESS | Repair=attempted | Answer: These regulations have been formulated expressly to ensure that students are fully apprised of the rules and regulations that must be respected during the taking of exams. Students taking exams at this University must comply with the regulations written here unless otherwise specified. Prior to taking an exam, students should carefully read any announcements or bulletins relating to the exam. student arriving more than 20 minutes late to exam not permitted to enter the exam room, barred from exam The evaluations of academic performance at NCU takes the forms as follows: 1. common tests: given by teachers at any time; 2. interim tests: given by teachers during class hours; 3. mid-term exams: given by teachers in the middle of a semester; 4. final exams: given by teachers within a specified period at the end of a semester; 5. term papers: assigned by teachers as they see fit."
+        "explanation": "Intent=exam | Security=ALLOW | Diagnosis=SUCCESS | Repair=attempted | Answer: These regulations have been formulated expressly to ensure that students are fully apprised of the rules and regulations that must be respected during the taking of exams. Students taking exams at this University must comply with the regulations written here unless otherwise specified. Prior to taking an exam, students should carefully read any announcements or bulletins relating to the exam. student arriving more than 20 minutes late to exam not permitted to enter the exam room, barred from exam Students who fail any courses in any semester should not receive any make-up exams for the failed courses. Students should retake compulsory courses if they fail them."
       }
     },
     {
@@ -855,7 +855,7 @@
       "expected": "",
       "pass": true,
       "reason": "failure handled with diagnosis=SUCCESS",
-      "latency_sec": 0.0414,
+      "latency_sec": 0.0291,
       "contract": {
         "required_fields": [
           "answer",
@@ -891,7 +891,7 @@
       "expected": "",
       "pass": true,
       "reason": "failure handled with diagnosis=SUCCESS",
-      "latency_sec": 0.019,
+      "latency_sec": 0.0101,
       "contract": {
         "required_fields": [
           "answer",
@@ -912,12 +912,12 @@
         "missing_fields": []
       },
       "output": {
-        "answer": "These regulations have been formulated expressly to ensure that students are fully apprised of the rules and regulations that must be respected during the taking of exams. Students taking exams at this University must comply with the regulations written here unless otherwise specified. Prior to taking an exam, students should carefully read any announcements or bulletins relating to the exam. student arriving more than 20 minutes late to exam not permitted to enter the exam room, barred from exam The evaluations of academic performance at NCU takes the forms as follows: 1. common tests: given by teachers at any time; 2. interim tests: given by teachers during class hours; 3. mid-term exams: given by teachers in the middle of a semester; 4. final exams: given by teachers within a specified period at the end of a semester; 5. term papers: assigned by teachers as they see fit.",
+        "answer": "These regulations have been formulated expressly to ensure that students are fully apprised of the rules and regulations that must be respected during the taking of exams. Students taking exams at this University must comply with the regulations written here unless otherwise specified. Prior to taking an exam, students should carefully read any announcements or bulletins relating to the exam. student arriving more than 20 minutes late to exam not permitted to enter the exam room, barred from exam Students who fail any courses in any semester should not receive any make-up exams for the failed courses. Students should retake compulsory courses if they fail them.",
         "safety_decision": "ALLOW",
         "diagnosis": "SUCCESS",
         "repair_attempted": true,
         "repair_changed": true,
-        "explanation": "Intent=exam | Security=ALLOW | Diagnosis=SUCCESS | Repair=attempted | Answer: These regulations have been formulated expressly to ensure that students are fully apprised of the rules and regulations that must be respected during the taking of exams. Students taking exams at this University must comply with the regulations written here unless otherwise specified. Prior to taking an exam, students should carefully read any announcements or bulletins relating to the exam. student arriving more than 20 minutes late to exam not permitted to enter the exam room, barred from exam The evaluations of academic performance at NCU takes the forms as follows: 1. common tests: given by teachers at any time; 2. interim tests: given by teachers during class hours; 3. mid-term exams: given by teachers in the middle of a semester; 4. final exams: given by teachers within a specified period at the end of a semester; 5. term papers: assigned by teachers as they see fit."
+        "explanation": "Intent=exam | Security=ALLOW | Diagnosis=SUCCESS | Repair=attempted | Answer: These regulations have been formulated expressly to ensure that students are fully apprised of the rules and regulations that must be respected during the taking of exams. Students taking exams at this University must comply with the regulations written here unless otherwise specified. Prior to taking an exam, students should carefully read any announcements or bulletins relating to the exam. student arriving more than 20 minutes late to exam not permitted to enter the exam room, barred from exam Students who fail any courses in any semester should not receive any make-up exams for the failed courses. Students should retake compulsory courses if they fail them."
       }
     },
     {
@@ -927,7 +927,7 @@
       "expected": "",
       "pass": true,
       "reason": "failure handled with diagnosis=SUCCESS",
-      "latency_sec": 0.0342,
+      "latency_sec": 0.0278,
       "contract": {
         "required_fields": [
           "answer",
@@ -963,7 +963,7 @@
       "expected": "",
       "pass": true,
       "reason": "failure handled with diagnosis=SUCCESS",
-      "latency_sec": 0.0524,
+      "latency_sec": 0.0439,
       "contract": {
         "required_fields": [
           "answer",
@@ -999,7 +999,7 @@
       "expected": "",
       "pass": true,
       "reason": "failure handled with diagnosis=SUCCESS",
-      "latency_sec": 0.038,
+      "latency_sec": 0.0412,
       "contract": {
         "required_fields": [
           "answer",
@@ -1035,7 +1035,7 @@
       "expected": "",
       "pass": true,
       "reason": "failure handled with diagnosis=SUCCESS",
-      "latency_sec": 0.0278,
+      "latency_sec": 0.0139,
       "contract": {
         "required_fields": [
           "answer",
@@ -1071,7 +1071,7 @@
       "expected": "",
       "pass": true,
       "reason": "failure handled with diagnosis=SUCCESS",
-      "latency_sec": 0.0382,
+      "latency_sec": 0.0284,
       "contract": {
         "required_fields": [
           "answer",
